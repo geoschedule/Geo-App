@@ -6,8 +6,7 @@ export default class Login extends React.Component {
 
     handlePress = () => {
         try {
-
-            this.props.navigation.navigate('Home'),{socket};
+            this.props.navigation.navigate('Home'), { socket };
         }
         catch{
         }
