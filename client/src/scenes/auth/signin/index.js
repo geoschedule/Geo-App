@@ -34,7 +34,7 @@ export default class SignIn extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={{ width: 340, height: 90, marginBottom: 60 }} source={{ uri: 'https://cdn.discordapp.com/attachments/399368683828281346/564258531361161235/geoschdlr.PNG' }} />
+                <Image style={{ width: '82%', height: 90, marginBottom: 60 }} source={{ uri: 'https://cdn.discordapp.com/attachments/399368683828281346/564258531361161235/geoschdlr.PNG' }} />
                 <TextInput style={styles.inputFields}
                     placeholder="000-000-0000"
                     placeholderTextColor="white"
@@ -47,7 +47,7 @@ export default class SignIn extends React.Component {
                     <Text style={styles.submitText}>Sign In</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.signUpButton} onPress={this.gotoSignUp}>
-                    <Text >Register</Text>
+                    <Text style={{ alignSelf: 'flex-end' }}>Register</Text>
                 </TouchableOpacity>
             </View>
         );

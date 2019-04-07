@@ -33,7 +33,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={{ width: 340, height: 90, marginBottom: 60 }} source={{ uri: 'https://cdn.discordapp.com/attachments/399368683828281346/564258531361161235/geoschdlr.PNG' }} />
+                <Image style={{ width: '82%', height: 90, marginBottom: 60 }} source={{ uri: 'https://cdn.discordapp.com/attachments/399368683828281346/564258531361161235/geoschdlr.PNG' }} />
                 <TextInput style={styles.inputFields}
                     placeholder="John Doe"
                     placeholderTextColor="white"
@@ -51,7 +51,7 @@ export default class Login extends React.Component {
                     <Text style={styles.submitText}>Join</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.backButton} onPress={this.gotoSignIn}>
-                    <Text >← Go Back</Text>
+                    <Text style={{ alignSelf: 'flex-end' }}>← Go Back</Text>
                 </TouchableOpacity>
             </View>
         );
