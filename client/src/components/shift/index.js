@@ -10,9 +10,6 @@ export default class Shift extends React.Component {
             currentStarus: '',
         }
     }
-    handlePress = () => {
-        this.props.navigation.navigate('Home');
-    }
     render() {
         return (
             <View style={styles.container}>

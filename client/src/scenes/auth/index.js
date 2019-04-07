@@ -1,31 +1,39 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Image,AsyncStorage } from 'react-native';
 import styles from './styles';
+
+import axios from 'axios';
+
+let SERVER_URL = "http://00d4e500.ngrok.io";
+
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: 'John Doe',
             employeeID: '000000',
-            companyCode: '000000'
+            companyID: '000000'
         }
 
 
 
     }
-    handlePress = () => {
+    handlePress = async () => {
 
-        // const { socket } = this.props
-        // try {
-        //     console.log(this.state)
-        //     socket.emit('Mobile-register', this.state)
-        //     console.log('pressed')
-        this.props.history.push('/Home');
-        //     console.log('emitted')
-        // }
-        // catch (e) {
-        //     console.log(e)
-        // }
+        const { socket } = this.props
+        try {
+            console.log(this.state)
+            await AsyncStorage.setItem("id",this.state.employeeID)
+            socket.emit('Mobile-register', this.state)
+            console.log('pressed')
+            await axios.post(SERVER_URL+"/user",this.state)
+            this.props.history.push('/Home');
+            console.log('emitted')
+
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
     gotoSignIn = () => {
         this.props.history.push('/');

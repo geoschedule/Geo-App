@@ -1,8 +1,13 @@
 import React from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import styles from './styles'
 import Shift from '../../components/shift'
 
+import axios from 'axios';
+
+let SERVER_URL = "http://00d4e500.ngrok.io";
+
+let func;
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -31,8 +36,31 @@ export default class Home extends React.Component {
         this.props.history.push('/');
     }
 
-    render() {
+    async componentDidMount() {
+        let id = AsyncStorage.getItem("id");
 
+        let schedules = await axios.post(SERVER_URL + "/schedule/readOne", { employeeID: id })
+
+        func = setInterval(() => {
+            this.sendLocation()
+        }, 5000)
+    }
+
+    getCurrentPosition = (options = {}) => {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, options);
+        });
+    };
+
+    sendLocation = async () => {
+        const { socket } = this.props;
+        let location = await this.getCurrentPosition();
+        socket.emit('Mobile-sendLocation', location);
+        console.log('emmitted')
+    }
+
+
+    render() {
         return (
             <View style={styles.container}>
                 <View style={{
