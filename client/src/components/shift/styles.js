@@ -8,26 +8,26 @@ export default styles = StyleSheet.create({
         // alignItems: 'center',
         // height: '100%',
         width: 380,
-        backgroundColor: '#B5BFCC',
+        backgroundColor: '#1096EA',
         marginTop: 40,
         borderRadius: 5
     },
     date: {
-        color: 'black',
+        color: 'white',
         fontWeight: '700',
         marginBottom: 2,
     },
     status: {
         width: '80%',
-        backgroundColor: '#456A91',
+        backgroundColor: '#0c83ce',
         padding: 5,
         marginTop: 10,
         textAlign: 'center',
-        borderRadius: 5
+        borderRadius: 2
     },
     time: {
         marginTop: 5,
-        color: 'black',
+        color: 'white',
         fontWeight: '900',
         fontSize: 30
     },

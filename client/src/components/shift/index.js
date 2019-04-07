@@ -20,7 +20,7 @@ export default class Shift extends React.Component {
                 <Text style={styles.date}>{this.props.data.department}</Text>
                 <Text style={styles.time}>{this.props.data.time}</Text>
                 <View style={styles.status}>
-                    <Text style={styles.date}>{this.props.data.status}</Text>
+                    <Text style={styles.date}>Status: {this.props.data.status}</Text>
                 </View>
             </View>
         );
