@@ -1,8 +1,13 @@
 import React from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image,AsyncStorage } from 'react-native';
 import styles from './styles'
 import Shift from '../../components/shift'
 
+import axios from 'axios';
+
+let SERVER_URL = "http://00d4e500.ngrok.io";
+
+let func;
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -28,15 +33,37 @@ export default class Home extends React.Component {
 
     }
 
+    async componentDidMount(){
+        let id = AsyncStorage.getItem("id");
+        
+        let schedules = await axios.post(SERVER_URL+"/schedule/readOne",{employeeID:id})
+
+        func = setInterval(()=>{
+            this.sendLocation()
+          }, 5000)
+    }
+
+    getCurrentPosition = (options = {}) => {
+        return new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, options);
+        });
+      };
+
+    sendLocation = async () => {
+        const{socket} = this.props;
+        let location = await this.getCurrentPosition();
+        socket.emit('Mobile-sendLocation',location);
+        console.log('emmitted')
+    }
+
 
     render() {
-
         return (
             <View style={styles.container}>
                 <View style={{
                     height: '8%',
                     width: '100%',
-                    // backgroundColor: '#E7ECEF',
+                     // backgroundColor: '#E7ECEF',
                 }}>
                     <Image style={{ width: 120, height: 35, marginTop: 30, marginLeft: 30 }} source={{ uri: 'https://cdn.discordapp.com/attachments/399368683828281346/564258531361161235/geoschdlr.PNG' }} />
                 </View>
