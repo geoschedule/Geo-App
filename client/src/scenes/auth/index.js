@@ -35,7 +35,9 @@ export default class Login extends React.Component {
             console.log(e)
         }
     }
-
+    gotoSignIn = () => {
+        this.props.history.push('/');
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -55,6 +57,9 @@ export default class Login extends React.Component {
 
                 <TouchableOpacity style={styles.submit} onPress={this.handlePress}>
                     <Text style={styles.submitText}>Join</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.backButton} onPress={this.gotoSignIn}>
+                    <Text >← Go Back</Text>
                 </TouchableOpacity>
             </View>
         );
