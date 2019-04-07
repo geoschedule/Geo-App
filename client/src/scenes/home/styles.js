@@ -11,11 +11,24 @@ export default styles = StyleSheet.create({
     },
     header: {
         height: 80,
-        width: 400,
+        width: '90%',
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
-        backgroundColor: 'red'
+    },
+    logoutButton: {
+        marginTop: '1%',
+        width: '42%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }, footer: {
+        height: '6%',
+        width: '90%',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        borderColor: '#939393'
     }
 
 

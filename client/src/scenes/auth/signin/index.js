@@ -47,7 +47,7 @@ export default class SignIn extends React.Component {
                     <Text style={styles.submitText}>Sign In</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.signUpButton} onPress={this.gotoSignUp}>
-                    <Text style={{ alignSelf: 'flex-end' }}>Register</Text>
+                    <Text style={{ alignSelf: 'flex-end' }}>Register →</Text>
                 </TouchableOpacity>
             </View>
         );

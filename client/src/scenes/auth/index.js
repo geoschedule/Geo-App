@@ -51,7 +51,7 @@ export default class Login extends React.Component {
                     <Text style={styles.submitText}>Join</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.backButton} onPress={this.gotoSignIn}>
-                    <Text style={{ alignSelf: 'flex-end' }}>← Go Back</Text>
+                    <Text style={{ alignSelf: 'flex-end' }}>← Sign In</Text>
                 </TouchableOpacity>
             </View>
         );
