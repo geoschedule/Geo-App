@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
 import styles from './styles';
-export default class Login extends React.Component {
+export default class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: 'John Doe',
-            employeeID: '000000',
-            companyCode: '000000'
+            password: '*********',
+
         }
 
 
@@ -27,31 +27,27 @@ export default class Login extends React.Component {
         //     console.log(e)
         // }
     }
-    gotoSignIn = () => {
-        this.props.history.push('/');
+    gotoSignUp = () => {
+        this.props.history.push('/Login');
     }
+
     render() {
         return (
             <View style={styles.container}>
                 <Image style={{ width: 340, height: 90, marginBottom: 60 }} source={{ uri: 'https://cdn.discordapp.com/attachments/399368683828281346/564258531361161235/geoschdlr.PNG' }} />
                 <TextInput style={styles.inputFields}
-                    placeholder="John Doe"
+                    placeholder="000-000-0000"
                     placeholderTextColor="white"
                     onChangeText={(name) => this.setState({ name })} />
                 <TextInput style={styles.inputFields}
-                    placeholder="000-000-0000"
+                    placeholder="**********"
                     placeholderTextColor="white"
-                    onChangeText={(employeeID) => this.setState({ employeeID })} />
-                <TextInput style={styles.inputFields}
-                    placeholder="000-000-000-0000"
-                    placeholderTextColor="white"
-                    onChangeText={(companyCode) => this.setState({ companyCode })} />
-
+                    onChangeText={(password) => this.setState({ password })} />
                 <TouchableOpacity style={styles.submit} onPress={this.handlePress}>
-                    <Text style={styles.submitText}>Join</Text>
+                    <Text style={styles.submitText}>Sign In</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.backButton} onPress={this.gotoSignIn}>
-                    <Text >← Go Back</Text>
+                <TouchableOpacity style={styles.signUpButton} onPress={this.gotoSignUp}>
+                    <Text >Register</Text>
                 </TouchableOpacity>
             </View>
         );

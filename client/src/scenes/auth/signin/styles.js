@@ -28,13 +28,10 @@ export default styles = StyleSheet.create({
         color: 'white',
         fontWeight: '900',
         fontSize: 18
-    },
-    backButton: {
+    }, signUpButton: {
+        marginTop: 60,
         width: '80%',
         height: 30,
-        marginTop: 60,
-
-
     }
 
 })
