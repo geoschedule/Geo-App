@@ -6,8 +6,6 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 20,
-        paddingBottom: 20
-
     },
     header: {
         height: 80,
@@ -23,7 +21,7 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }, footer: {
-        height: '6%',
+        height: '10%',
         width: '90%',
         justifyContent: 'space-around',
         alignItems: 'center',

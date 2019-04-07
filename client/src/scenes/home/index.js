@@ -17,8 +17,8 @@ export default class Home extends React.Component {
             user: { name: 'John' },
             employeeID: null
         }
-        const{socket} = this.props;
-        
+        const { socket } = this.props;
+
         socket.on('Mobile-clockIn', (day) => {
             let copy = this.state.shifts;
 
@@ -27,8 +27,8 @@ export default class Home extends React.Component {
                     shift.working = true
             })
 
-            this.setState({shifts:newState})
-            
+            this.setState({ shifts: newState })
+
         })
 
         socket.on('Mobile-clockOut', (day) => {
@@ -39,47 +39,50 @@ export default class Home extends React.Component {
                     shift.working = false
             })
 
-            this.setState({shifts:newState})
-            
+            this.setState({ shifts: newState })
+
         })
     }
     gotoSignIn = () => {
         this.props.history.push('/');
     }
+    gotoProfile = () => {
+        this.props.history.push('/Profile');
+    }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let employeeID = await AsyncStorage.getItem("id");
-        this.setState({employeeID});
+        this.setState({ employeeID });
         console.log('finding schedule')
-        let schedulesPre = await axios.post(SERVER_URL+"/schedule/readOne",{employeeID})
+        let schedulesPre = await axios.post(SERVER_URL + "/schedule/readOne", { employeeID })
         // console.log(schedules.data)
-        let {schedules} = schedulesPre.data;
+        let { schedules } = schedulesPre.data;
         console.log(schedules)
 
-        let days = ["friday","saturday","sunday","monday","tuesday","thursday","wednesday"]
+        let days = ["friday", "saturday", "sunday", "monday", "tuesday", "thursday", "wednesday"]
         let arr = []
 
-        for (let entry in schedules){
-            if(days.includes(entry)){
-                let {startTime,endTime} = schedules[entry]
+        for (let entry in schedules) {
+            if (days.includes(entry)) {
+                let { startTime, endTime } = schedules[entry]
                 let start = this.formatTime(startTime);
                 let end = this.formatTime(endTime);
                 let time = `${start}-${end}`
                 let format = {
-                day: entry,
-                time,
-                working: false
+                    day: entry,
+                    time,
+                    working: false
                 }
 
                 arr.push(format);
             }
-            
+
         }
-        this.setState({shifts:arr})
+        this.setState({ shifts: arr })
 
         func = setInterval(() => {
             this.sendLocation()
-          }, 3000)
+        }, 3000)
     }
 
     getCurrentPosition = (options = {}) => {
@@ -89,39 +92,39 @@ export default class Home extends React.Component {
     };
 
     sendLocation = async () => {
-        const{socket} = this.props;
-        let {employeeID} = this.state;
+        const { socket } = this.props;
+        let { employeeID } = this.state;
         let location = await this.getCurrentPosition();
         let format = {
             location,
             employeeID
         }
-        socket.emit('Mobile-sendLocation',format);
+        socket.emit('Mobile-sendLocation', format);
         console.log('emmitted')
     }
 
-    formatTime= (time) =>{
-        time = time+':00:00'
+    formatTime = (time) => {
+        time = time + ':00:00'
         time = time.split(':'); // convert to array
-    
+
         // fetch
         var hours = Number(time[0]);
         var minutes = Number(time[1]);
-    
+
         // calculate
         var timeValue;
-    
+
         if (hours > 0 && hours <= 12) {
-          timeValue= "" + hours;
+            timeValue = "" + hours;
         } else if (hours > 12) {
-          timeValue= "" + (hours - 12);
+            timeValue = "" + (hours - 12);
         } else if (hours == 0) {
-          timeValue= "12";
+            timeValue = "12";
         }
-    
+
         timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
         timeValue += (hours >= 12) ? " P.M." : " A.M.";  // get AM/PM
-        
+
         return timeValue
     }
 
@@ -149,9 +152,9 @@ export default class Home extends React.Component {
                         }} />
                         < Text style={{ alignSelf: 'center' }}>Logout</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.logoutButton} onPress={this.gotoSignIn}>
-                        <Image style={{ width: 30, height: 30, }} source={{ uri: 'data:image/png;base64,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' }} />
-                        <Text style={{ alignSelf: 'center' }}>Clock In</Text>
+                    <TouchableOpacity style={styles.logoutButton} onPress={this.gotoProfile}>
+                        <Image style={{ width: 30, height: 30, }} source={{ uri: 'data:image/png;base64,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' }} />
+                        <Text style={{ alignSelf: 'center' }}>Profile</Text>
                     </TouchableOpacity>
                 </View>
             </View >
