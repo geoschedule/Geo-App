@@ -12,7 +12,7 @@ export default class Login extends React.Component {
         this.state = {
             name: 'John Doe',
             employeeID: '000000',
-            companyCode: '000000'
+            companyID: '000000'
         }
 
 
@@ -26,7 +26,7 @@ export default class Login extends React.Component {
             await AsyncStorage.setItem("id",this.state.employeeID)
             socket.emit('Mobile-register', this.state)
             console.log('pressed')
-            axios.post(SERVER_URL+"/user",this.state)
+            await axios.post(SERVER_URL+"/user",this.state)
             this.props.history.push('/Home');
             console.log('emitted')
 
