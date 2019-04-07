@@ -13,7 +13,6 @@ const socket = io.connect(SERVER_URL);
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, height: '100%', width: '100%' }}>
         <NativeRouter>
           <Switch>
 
@@ -22,7 +21,6 @@ export default class App extends React.Component {
             <Route exact path='/Home' render={(routeProps => < Home {...routeProps} socket={socket} />)} />
           </Switch>
         </NativeRouter>
-      </View>
     );
   }
 }
