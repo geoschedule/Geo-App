@@ -12,7 +12,7 @@ export default styles = StyleSheet.create({
         width: '80%',
         padding: 15,
         marginTop: 20,
-        backgroundColor: '#8EB1C7',
+        backgroundColor: '#B5BFCC',
         borderRadius: 5
     },
     submit: {
