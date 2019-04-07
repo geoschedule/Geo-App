@@ -5,29 +5,18 @@ export default styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
-        width: '100%'
+        paddingTop: 20,
+        paddingBottom: 20
+
     },
-    inputFields: {
-        width: '80%',
-        padding: 15,
-        marginTop: 20,
-        backgroundColor: '#8EB1C7',
-        borderRadius: 5
-    },
-    submit: {
-        width: '80%',
-        backgroundColor: '#1096EA',
-        padding: 15,
-        marginTop: 50,
-        textAlign: 'center',
-        borderRadius: 30
-    }, submitText: {
-        width: '100%',
-        textAlign: 'center',
-        color: 'white',
-        fontWeight: '900',
-        fontSize: 18
+    header: {
+        height: 80,
+        width: 400,
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        backgroundColor: 'red'
     }
+
 
 })

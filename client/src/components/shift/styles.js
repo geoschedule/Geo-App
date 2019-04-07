@@ -2,31 +2,38 @@ import { StyleSheet } from 'react-native'
 
 export default styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%'
-    },
-    inputFields: {
-        width: '80%',
-        padding: 15,
-        marginTop: 20,
-        backgroundColor: '#8EB1C7',
+        padding: 20,
+        // flex: 1,
+        // justifyContent: 'flex-start',
+        // alignItems: 'center',
+        // height: '100%',
+        width: 380,
+        backgroundColor: '#B5BFCC',
+        marginTop: 40,
         borderRadius: 5
     },
-    submit: {
+    date: {
+        color: 'black',
+        fontWeight: '700',
+        marginBottom: 2,
+    },
+    status: {
         width: '80%',
-        backgroundColor: '#1096EA',
-        padding: 15,
-        marginTop: 50,
+        backgroundColor: '#456A91',
+        padding: 5,
+        marginTop: 10,
         textAlign: 'center',
-        borderRadius: 30
-    }, submitText: {
-        width: '100%',
-        textAlign: 'center',
-        color: 'white',
+        borderRadius: 5
+    },
+    time: {
+        marginTop: 5,
+        color: 'black',
         fontWeight: '900',
+        fontSize: 30
+    },
+    statusText: {
+        color: 'white',
+        fontWeight: '700',
         fontSize: 18
     }
 
