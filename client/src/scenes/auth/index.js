@@ -10,9 +10,9 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'John Doe',
-            employeeID: '000000',
-            companyID: '000000'
+            name: null,
+            employeeID: null,
+            companyID: null
         }
 
 
@@ -53,7 +53,7 @@ export default class Login extends React.Component {
                 <TextInput style={styles.inputFields}
                     placeholder="000-000-000-0000"
                     placeholderTextColor="white"
-                    onChangeText={(companyCode) => this.setState({ companyCode })} />
+                    onChangeText={(companyID) => this.setState({ companyID })} />
 
                 <TouchableOpacity style={styles.submit} onPress={this.handlePress}>
                     <Text style={styles.submitText}>Join</Text>

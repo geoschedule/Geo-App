@@ -13,34 +13,70 @@ export default class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            shifts: [
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-                { department: 'Grocery', time: '5:00PM - 10:00PM', status: 'Working', date: 'Sept 22nd, 2019', },
-
-            ],
-            user: { name: 'John' }
+            shifts: null,
+            user: { name: 'John' },
+            employeeID: null
         }
+        const{socket} = this.props;
+        
+        socket.on('Mobile-clockIn', (day) => {
+            let copy = this.state.shifts;
 
+            let newState = copy.map(shift => {
+                if (shift.day == day)
+                    shift.working = true
+            })
 
+            this.setState({shifts:newState})
+            
+        })
+
+        socket.on('Mobile-clockOut', (day) => {
+            let copy = this.state.shifts;
+
+            let newState = copy.map(shift => {
+                if (shift.day == day)
+                    shift.working = false
+            })
+
+            this.setState({shifts:newState})
+            
+        })
     }
 
     async componentDidMount(){
-        let id = AsyncStorage.getItem("id");
-        
-        let schedules = await axios.post(SERVER_URL+"/schedule/readOne",{employeeID:id})
+        let employeeID = await AsyncStorage.getItem("id");
+        this.setState({employeeID});
+        console.log('finding schedule')
+        let schedulesPre = await axios.post(SERVER_URL+"/schedule/readOne",{employeeID})
+        // console.log(schedules.data)
+        let {schedules} = schedulesPre.data;
+        console.log(schedules)
+
+        let days = ["friday","saturday","sunday","monday","tuesday","thursday","wednesday"]
+        let arr = []
+
+        for (let entry in schedules){
+            if(days.includes(entry)){
+                let {startTime,endTime} = schedules[entry]
+                let start = this.formatTime(startTime);
+                let end = this.formatTime(endTime);
+                let time = `${start}-${end}`
+                let format = {
+                day: entry,
+                time,
+                working: false
+                }
+
+                arr.push(format);
+            }
+            
+        }
+        this.setState({shifts:arr})
 
         func = setInterval(()=>{
             this.sendLocation()
-          }, 5000)
+          }, 3000)
     }
 
     getCurrentPosition = (options = {}) => {
@@ -51,9 +87,39 @@ export default class Home extends React.Component {
 
     sendLocation = async () => {
         const{socket} = this.props;
+        let {employeeID} = this.state;
         let location = await this.getCurrentPosition();
-        socket.emit('Mobile-sendLocation',location);
+        let format = {
+            location,
+            employeeID
+        }
+        socket.emit('Mobile-sendLocation',format);
         console.log('emmitted')
+    }
+
+    formatTime= (time) =>{
+        time = time+':00:00'
+        time = time.split(':'); // convert to array
+    
+        // fetch
+        var hours = Number(time[0]);
+        var minutes = Number(time[1]);
+    
+        // calculate
+        var timeValue;
+    
+        if (hours > 0 && hours <= 12) {
+          timeValue= "" + hours;
+        } else if (hours > 12) {
+          timeValue= "" + (hours - 12);
+        } else if (hours == 0) {
+          timeValue= "12";
+        }
+    
+        timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
+        timeValue += (hours >= 12) ? " P.M." : " A.M.";  // get AM/PM
+        
+        return timeValue
     }
 
 
@@ -70,7 +136,7 @@ export default class Home extends React.Component {
                 <FlatList
                     containerStyle={styles.container}
                     data={this.state.shifts}
-                    renderItem={({ item }) => <Shift data={item} />} />
+                    renderItem={({ item }) => <Shift data={item}  />} />
                 <View style={{ height: '6%', width: '100%', backgroundColor: 'white', position: 0 }}>
 
                 </View>

@@ -13,11 +13,10 @@ export default class Shift extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.date}>{this.props.data.date}</Text>
-                <Text style={styles.date}>{this.props.data.department}</Text>
+                <Text style={styles.date}>{this.props.data.day}</Text>
                 <Text style={styles.time}>{this.props.data.time}</Text>
                 <View style={styles.status}>
-                    <Text style={styles.date}>Status: {this.props.data.status}</Text>
+                    <Text style={styles.date}>Status: {this.props.data.working ? 'working' : 'not working'}</Text>
                 </View>
             </View>
         );
