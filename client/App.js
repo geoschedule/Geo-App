@@ -5,7 +5,7 @@ import {NativeRouter,Switch,Route} from 'react-router-native'
 import Home from './src/scenes/home'
 import Login from './src/scenes/auth'
 
-let SERVER_URL = "http://8cfbf6bf.ngrok.io";
+let SERVER_URL = "http://00d4e500.ngrok.io";
 const socket = io.connect(SERVER_URL);
 
 export default class App extends React.Component {

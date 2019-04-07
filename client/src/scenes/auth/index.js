@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import styles from './styles';
+import axios from 'axios';
+
+let SERVER_URL = "";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -22,8 +25,10 @@ export default class Login extends React.Component {
             console.log(this.state)
             socket.emit('Mobile-register', this.state)
             console.log('pressed')
+            axios.post(SERVER_URL+"/user",this.state)
             this.props.history.push('/Home');
             console.log('emitted')
+
         }
         catch (e) {
             console.log(e)
